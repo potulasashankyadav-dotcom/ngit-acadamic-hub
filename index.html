@@ -4,1385 +4,862 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Keep your existing Google verification token -->
-  <meta name="google-site-verification"
-        content="4hGkXzJIncqYjntyOc_XJFxn-DpveA-mRmkrNGhc4IE">
-
-  <meta name="description"
-        content="NGIT Academic Hub - BTech notes, previous question papers and study materials.">
-
-  <meta name="theme-color" content="#10233f">
+  <meta name="google-site-verification" content="4hGkXzJIncqYjntyOc_XJFxn-DpveA-mRmkrNGhc4IE">
+  <meta name="description" content="NGIT Academic Hub: Find BTech notes, previous question papers and study materials.">
   <title>NGIT Academic Hub</title>
 
   <style>
-    :root {
-      --navy: #10233f;
-      --navy-light: #183b60;
-      --blue: #17649c;
-      --blue-light: #eaf4ff;
-      --bg: #f5f7fb;
-      --white: #ffffff;
-      --text: #17243b;
-      --muted: #66758a;
-      --border: #dfe6ef;
-      --success: #18794e;
-      --shadow: 0 8px 28px rgba(16, 35, 63, 0.06);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, "Segoe UI", Arial, sans-serif;
-      line-height: 1.6;
+      background: #f3f6fb;
+      color: #17243b;
+      font-family: Arial, sans-serif;
     }
 
-    button, input {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    button:focus-visible,
-    a:focus-visible,
-    input:focus-visible {
-      outline: 3px solid #79baff;
-      outline-offset: 3px;
-    }
-
-    .topbar {
-      background: var(--navy);
+    header {
+      background: #10233f;
       color: white;
-      border-bottom: 1px solid rgba(255,255,255,.12);
+      padding: 25px max(6%, 20px);
     }
 
-    .topbar-inner {
-      max-width: 1160px;
-      margin: auto;
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .brand-icon {
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: #244c74;
-      color: #b8dcff;
-      font-size: 23px;
-    }
-
-    .brand-name {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: .3px;
-      line-height: 1.3;
-    }
-
-    .brand-subtitle {
-      font-size: 12px;
-      color: #c5d5e7;
-      margin-top: 3px;
-    }
-
-    .top-label {
-      color: #d7e6f6;
-      font-size: 12px;
-      white-space: nowrap;
-    }
+    .brand { font-size: 23px; font-weight: bold; }
+    .brand span { color: #83c5ff; }
+    header p { color: #c6d5e8; }
 
     .hero {
-      background:
-        radial-gradient(ellipse at 85% 10%, rgba(85,157,218,.20), transparent 36%),
-        linear-gradient(125deg, #10233f 0%, #173e65 100%);
+      background: linear-gradient(120deg, #10233f, #205a89);
       color: white;
+      padding: 48px max(6%, 20px) 55px;
     }
 
-    .hero-inner {
-      max-width: 1160px;
-      margin: auto;
-      padding: 58px 24px 52px;
+    .tag {
+      color: #a9dcff;
+      font-size: 12px;
+      letter-spacing: 2px;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #a9d8ff;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 1.8px;
-      font-weight: 800;
+    h1 {
+      font-size: clamp(34px, 6vw, 55px);
+      margin: 12px 0;
     }
 
-    .eyebrow::before {
-      content: "";
-      display: block;
-      width: 23px;
-      height: 2px;
-      background: #80c5ff;
-    }
-
-    .hero h1 {
-      font-size: clamp(34px, 5.2vw, 54px);
-      line-height: 1.12;
-      letter-spacing: -1.5px;
-      max-width: 700px;
-      margin: 16px 0;
-    }
-
-    .hero-description {
-      color: #d2e0ef;
-      max-width: 610px;
-      font-size: 16px;
-      margin: 0;
-    }
-
-    .search-wrap {
-      position: relative;
-      max-width: 640px;
-      margin-top: 28px;
-    }
-
-    .search-icon {
-      position: absolute;
-      top: 50%;
-      left: 17px;
-      transform: translateY(-50%);
-      font-size: 19px;
-      color: #64758b;
-      pointer-events: none;
-    }
+    .hero p { line-height: 1.7; }
 
     #search {
       width: 100%;
-      padding: 16px 48px 16px 48px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.25);
-      background: white;
-      color: var(--text);
-      box-shadow: 0 8px 25px rgba(0,0,0,.12);
-      font-size: 14px;
-    }
-
-    #search::placeholder {
-      color: #8794a6;
-    }
-
-    #clearSearch {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
+      max-width: 520px;
+      padding: 15px;
       border: 0;
-      background: transparent;
-      color: #52657d;
-      padding: 8px;
-      border-radius: 7px;
-      display: none;
-    }
-
-    .search-hint {
-      color: #c5d5e7;
-      font-size: 12px;
-      margin-top: 10px;
+      border-radius: 9px;
+      margin-top: 14px;
+      font-size: 15px;
     }
 
     main {
-      max-width: 1160px;
-      min-height: 410px;
+      max-width: 1000px;
       margin: auto;
-      padding: 32px 24px 55px;
+      padding: 28px 20px;
+      min-height: 400px;
     }
 
-    .breadcrumb {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 7px;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
+    h2 { margin-top: 28px; }
 
-    .breadcrumb button {
-      border: 0;
-      background: transparent;
-      color: var(--blue);
-      padding: 3px 0;
-      font-size: inherit;
-    }
-
-    .breadcrumb button:hover {
-      text-decoration: underline;
-    }
-
-    .crumb-separator {
-      color: #9aa7b7;
-    }
-
-    .section-top {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 22px;
-    }
-
-    .section-kicker {
-      color: var(--blue);
-      text-transform: uppercase;
-      letter-spacing: 1.3px;
-      font-weight: 800;
-      font-size: 11px;
-      margin-bottom: 5px;
-    }
-
-    .section-title {
-      margin: 0;
-      font-size: clamp(24px, 3vw, 31px);
-      letter-spacing: -.6px;
-      line-height: 1.25;
-    }
-
-    .section-description {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 8px 0 0;
-    }
-
-    .back-button {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 10px 15px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--navy);
-      white-space: nowrap;
-    }
-
-    .back-button:hover {
-      background: var(--blue-light);
-      border-color: #b9d9f5;
-    }
-
-    .content-grid {
+    .years, .semesters {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 17px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
     }
 
-    .tile {
-      position: relative;
+    .semesters { grid-template-columns: repeat(2, 1fr); }
+
+    button {
+      cursor: pointer;
+      padding: 13px 8px;
+      border-radius: 9px;
+      border: 1px solid #d6dfeb;
+      background: white;
+      color: #17243b;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button:hover { border-color: #175b91; }
+
+    button.active {
+      background: #175b91;
+      color: white;
+      border-color: #175b91;
+    }
+
+    .branches {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 22px 0 35px;
+    }
+
+    .branch-card {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      min-width: 0;
-      min-height: 165px;
-      padding: 22px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: white;
-      color: var(--text);
       text-align: left;
-      box-shadow: var(--shadow);
-      transition: transform .16s ease, border-color .16s ease,
-                  box-shadow .16s ease;
-    }
-
-    .tile:hover {
-      transform: translateY(-3px);
-      border-color: #a9cce9;
-      box-shadow: 0 12px 30px rgba(16,35,63,.09);
-    }
-
-    .tile-icon {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
+      width: 100%;
+      min-height: 145px;
+      padding: 24px;
+      gap: 10px;
+      background: white;
+      border: 1px solid #d6dfeb;
       border-radius: 12px;
-      background: var(--blue-light);
-      color: var(--blue);
-      font-size: 24px;
-      margin-bottom: 18px;
     }
 
-    .tile-title {
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 1.4;
-      overflow-wrap: anywhere;
+    .branch-card:hover {
+      border-color: #175b91;
+      box-shadow: 0 5px 18px #10233f12;
     }
 
-    .tile-description {
-      color: var(--muted);
-      font-size: 13px;
+    .branch-icon { font-size: 30px; }
+    .branch-card strong { font-size: 20px; }
+
+    .branch-card small {
+      color: #64748b;
+      font-weight: normal;
       line-height: 1.5;
-      margin-top: 6px;
     }
 
-    .tile-arrow {
-      position: absolute;
-      right: 19px;
-      top: 22px;
-      color: #8191a5;
-      font-size: 20px;
-    }
-
-    .tile-meta {
-      color: var(--blue);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      margin-top: auto;
-      padding-top: 16px;
-    }
-
-    .material-card {
-      background: white;
-      min-width: 0;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-      overflow-wrap: anywhere;
-    }
-
-    .material-type {
-      display: inline-block;
-      background: var(--blue-light);
-      color: var(--blue);
-      border-radius: 6px;
-      padding: 5px 9px;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-    }
-
-    .material-card h3 {
-      font-size: 16px;
-      line-height: 1.45;
-      margin: 13px 0 6px;
-    }
-
-    .material-context {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    .open-link {
-      display: inline-flex;
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 7px;
-      margin-top: 18px;
-      background: var(--navy);
-      color: white;
-      text-decoration: none;
-      padding: 10px 13px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .open-link:hover {
-      background: var(--blue);
-    }
+    .section-heading h2 { margin-bottom: 8px; }
 
-    .empty-state {
-      grid-column: 1 / -1;
-      background: white;
-      border: 1px dashed #cbd6e3;
-      border-radius: 14px;
-      text-align: center;
-      padding: 42px 22px;
-    }
-
-    .empty-icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-
-    .empty-state h3 {
-      margin: 0;
-      font-size: 17px;
-    }
-
-    .empty-state p {
-      max-width: 450px;
-      margin: 8px auto 0;
-      color: var(--muted);
+    .small-button {
+      padding: 9px 13px;
       font-size: 13px;
     }
 
-    .status-note {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 18px;
+    .breadcrumb {
+      margin: 18px 0;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.8;
     }
 
-    .footer {
-      background: var(--navy);
-      color: #d4e0ee;
-      padding: 28px 24px;
+    .resources {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0 45px;
     }
 
-    .footer-inner {
-      max-width: 1160px;
-      margin: auto;
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #e0e7f0;
+      overflow-wrap: anywhere;
+      min-width: 0;
+    }
+
+    .card h3 { margin: 10px 0; }
+
+    .card p {
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .folder-card {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      width: 100%;
+      min-height: 125px;
+      padding: 20px;
+      gap: 8px;
     }
 
-    .footer strong {
-      color: white;
+    .folder-icon { font-size: 27px; }
+    .folder-card strong { font-size: 16px; }
+
+    .folder-card small {
+      color: #64748b;
+      font-weight: normal;
+      line-height: 1.5;
     }
 
-    .footer small {
+    .label {
+      color: #17669f;
       font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    [hidden] {
-      display: none !important;
+    .card a {
+      display: inline-block;
+      color: #175b91;
+      font-weight: bold;
+      text-decoration: none;
+      margin-top: 5px;
     }
 
-    @media (max-width: 850px) {
-      .content-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+    .card a:hover { text-decoration: underline; }
 
-      .top-label {
-        display: none;
-      }
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 30px 20px;
     }
 
-    @media (max-width: 540px) {
-      .topbar-inner {
-        padding: 15px 18px;
-      }
+    .empty p { color: #64748b; }
 
-      .brand-name {
-        font-size: 16px;
-      }
+    [hidden] { display: none !important; }
 
-      .hero-inner {
-        padding: 40px 20px;
-      }
-
-      .hero h1 {
-        letter-spacing: -1px;
-      }
-
-      main {
-        padding: 24px 18px 40px;
-      }
-
-      .content-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .tile {
-        min-height: 130px;
-        padding: 17px;
-      }
-
-      .tile-icon {
-        width: 42px;
-        height: 42px;
-        margin-bottom: 12px;
-      }
-
-      .section-top {
-        align-items: flex-start;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    footer {
+      background: #10233f;
+      color: #d5dfec;
+      padding: 25px;
+      text-align: center;
+      font-size: 13px;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
+    @media (max-width: 600px) {
+      .years { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .resources, .branches { grid-template-columns: 1fr; }
+      main { padding: 20px 15px; }
+      .hero { padding-top: 35px; }
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="brand-icon" aria-hidden="true">🎓</div>
-        <div>
-          <div class="brand-name">NGIT Academic Hub</div>
-          <div class="brand-subtitle">B.Tech Learning Portal</div>
-        </div>
-      </div>
-      <div class="top-label">LEARN · PRACTICE · EXCEL</div>
-    </div>
+<div class="site">
+
+  <header>
+    <div class="brand">🎓 NGIT <span>ACADEMIC HUB</span></div>
+    <p>Your four-year BTech learning companion</p>
   </header>
 
   <section class="hero">
-    <div class="hero-inner">
-      <div class="eyebrow">Your college. Your resources.</div>
-      <h1>Everything you need<br>to study smarter.</h1>
-      <p class="hero-description">
-        Access subject notes, previous question papers and study
-        materials in one organised place.
-      </p>
+    <p class="tag">YOUR COLLEGE. YOUR RESOURCES.</p>
+    <h1>Learn better.<br>Prepare smarter.</h1>
+    <p>Find notes, previous papers and lab materials in one place.</p>
 
-      <div class="search-wrap">
-        <span class="search-icon" aria-hidden="true">⌕</span>
-        <input
-          id="search"
-          type="search"
-          placeholder="Search subjects, notes or question papers..."
-          aria-label="Search all academic resources"
-          autocomplete="off"
-        >
-        <button id="clearSearch" type="button"
-                aria-label="Clear search">✕</button>
-      </div>
-      <div class="search-hint">
-        Search across available years, semesters and study materials.
-      </div>
-    </div>
+    <input
+      id="search"
+      type="search"
+      placeholder="Search subjects or materials..."
+      aria-label="Search subjects or study materials"
+      autocomplete="off"
+    >
   </section>
 
   <main>
-    <nav id="breadcrumb" class="breadcrumb"
-         aria-label="Breadcrumb" hidden></nav>
 
-    <section class="section-top">
-      <div>
-        <div id="sectionKicker" class="section-kicker">WELCOME</div>
-        <h2 id="sectionTitle" class="section-title">Choose your branch</h2>
-        <p id="sectionDescription" class="section-description">
-          Select your academic branch to get started.
-        </p>
+    <!-- BRANCH SELECTION -->
+    <section id="branchScreen">
+      <h2>Choose Your Branch</h2>
+      <p>Select your branch to explore its study materials.</p>
+
+      <div class="branches">
+        <button class="branch-card" type="button" data-branch="CSM">
+          <span class="branch-icon">📁</span>
+          <strong>CSM</strong>
+          <small>Computer Science and Machine Learning</small>
+          <small>Open CSM resources →</small>
+        </button>
+
+        <button class="branch-card" type="button" data-branch="CSE">
+          <span class="branch-icon">📁</span>
+          <strong>CSE</strong>
+          <small>Computer Science and Engineering</small>
+          <small>Open CSE resources →</small>
+        </button>
       </div>
-      <button id="backButton" class="back-button"
-              type="button" hidden>← Back</button>
     </section>
 
-    <section id="content" class="content-grid"
-             aria-live="polite">
-      <article class="empty-state">
-        <div class="empty-icon">⏳</div>
-        <h3>Loading academic resources</h3>
-        <p>Please wait while the catalogue is loaded.</p>
-      </article>
+    <!-- EXISTING ACADEMIC NAVIGATION -->
+    <section id="academicScreen" hidden>
+
+      <div class="section-heading">
+        <h2 id="branchTitle">CSM Resources</h2>
+        <button id="changeBranchButton" class="small-button" type="button">
+          ← Change Branch
+        </button>
+      </div>
+
+      <h2>Explore Your Academic Year</h2>
+      <p>Select a year and semester to explore its subjects.</p>
+
+      <div class="years">
+        <button class="year active" data-year="1">First Year</button>
+        <button class="year" data-year="2">Second Year</button>
+        <button class="year" data-year="3">Third Year</button>
+        <button class="year" data-year="4">Fourth Year</button>
+      </div>
+
+      <h2 id="yearTitle">First Year Resources</h2>
+
+      <div class="semesters">
+        <button class="sem active" data-sem="1">Semester 1</button>
+        <button class="sem" data-sem="2">Semester 2</button>
+      </div>
+
+      <div class="section-heading">
+        <h2 id="sectionTitle">Subjects</h2>
+        <button id="backButton" class="small-button" type="button" hidden>
+          ← Back
+        </button>
+      </div>
+
+      <div id="breadcrumb" class="breadcrumb"></div>
+
+      <div id="resources" class="resources" aria-live="polite">
+        <article class="card">
+          <h3>Loading materials...</h3>
+          <p>Please wait while the catalogue loads.</p>
+        </article>
+      </div>
     </section>
 
-    <p id="statusNote" class="status-note"></p>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div><strong>NGIT Academic Hub</strong></div>
-      <small>An independent student resource project</small>
-    </div>
-  </footer>
+  <footer>NGIT Academic Hub · An independent student resource project</footer>
+</div>
 
-  <script>
-    // Existing published Google Sheets CSV. Keep this URL unchanged.
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRe5lFuEHIxpb8AclNzp1VXrnlyQabsNntKSC9_XltwGhIDkoolgMe3k5ELzeJIQWVGM7BxD-wwe3P6/pub?gid=0&single=true&output=csv";
+<script>
+/*
+  Keep this URL unchanged.
+  It is the existing published Google Sheets CSV.
+*/
+const CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vRe5lFuEHIxpb8AclNzp1VXrnlyQabsNntKSC9_XltwGhIDkoolgMe3k5ELzeJIQWVGM7BxD-wwe3P6/pub?gid=0&single=true&output=csv";
 
-    const BRANCH = "CSE";
+let selectedBranch = null;
+let year = 1;
+let semester = 1;
+let materials = [];
+let selectedSubject = null;
+let selectedType = null;
+let loadError = false;
 
-    const YEAR_NAMES = {
-      1: "First Year",
-      2: "Second Year",
-      3: "Third Year",
-      4: "Fourth Year"
-    };
+const resourcesEl = document.getElementById("resources");
+const searchEl = document.getElementById("search");
+const branchScreenEl = document.getElementById("branchScreen");
+const academicScreenEl = document.getElementById("academicScreen");
 
-    let materials = [];
-    let loadError = false;
+const yearNames = {
+  1: "First Year",
+  2: "Second Year",
+  3: "Third Year",
+  4: "Fourth Year"
+};
 
-    // Views: branches, years, semesters, subjects, types, materials, search
-    let view = "branches";
-    let selectedBranch = BRANCH;
-    let selectedYear = null;
-    let selectedSemester = null;
-    let selectedSubject = null;
-    let selectedType = null;
+/* Read CSV correctly, including quoted cells and commas. */
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
 
-    const contentEl = document.getElementById("content");
-    const searchEl = document.getElementById("search");
-    const clearSearchEl = document.getElementById("clearSearch");
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
 
-    function normalize(value) {
-      return String(value || "")
-        .normalize("NFKD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, " ")
-        .trim();
-    }
-
-    function escapeHTML(value) {
-      return String(value == null ? "" : value).replace(/[&<>"']/g, ch => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      })[ch]);
-    }
-
-    function parseCSV(text) {
-      const rows = [];
-      let row = [];
-      let cell = "";
-      let quoted = false;
-
-      for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-
-        if (ch === '"' && quoted && text[i + 1] === '"') {
-          cell += '"';
-          i++;
-        } else if (ch === '"') {
-          quoted = !quoted;
-        } else if (ch === "," && !quoted) {
-          row.push(cell.trim());
-          cell = "";
-        } else if ((ch === "\n" || ch === "\r") && !quoted) {
-          if (ch === "\r" && text[i + 1] === "\n") i++;
-
-          row.push(cell.trim());
-          if (row.some(value => value !== "")) rows.push(row);
-
-          row = [];
-          cell = "";
-        } else {
-          cell += ch;
-        }
-      }
+    if (ch === '"' && quoted && text[i + 1] === '"') {
+      cell += '"';
+      i++;
+    } else if (ch === '"') {
+      quoted = !quoted;
+    } else if (ch === "," && !quoted) {
+      row.push(cell.trim());
+      cell = "";
+    } else if ((ch === "\n" || ch === "\r") && !quoted) {
+      if (ch === "\r" && text[i + 1] === "\n") i++;
 
       row.push(cell.trim());
       if (row.some(value => value !== "")) rows.push(row);
-      if (!rows.length) return [];
 
-      const headers = rows.shift().map(header =>
-        header.replace(/^\uFEFF/, "").toLowerCase().trim()
-      );
-
-      return rows.map(values => {
-        const item = {};
-
-        headers.forEach((header, index) => {
-          item[header] = (values[index] || "").trim();
-        });
-
-        return item;
-      });
+      row = [];
+      cell = "";
+    } else {
+      cell += ch;
     }
+  }
 
-    function getField(item, ...names) {
-      for (const name of names) {
-        const value = item[normalize(name).replace(/ /g, " ")];
-        if (value) return value;
-      }
-      return "";
-    }
+  row.push(cell.trim());
+  if (row.some(value => value !== "")) rows.push(row);
+  if (!rows.length) return [];
 
-    function getBranch(item) {
-      // Existing spreadsheet rows without a branch are treated as CSE.
-      return item["branch"] || "CSE";
-    }
+  const headers = rows.shift().map(header =>
+    header.replace(/^\uFEFF/, "").toLowerCase().trim()
+  );
 
-    function branchMatches(item) {
-      const branch = normalize(getBranch(item));
+  return rows.map(values => {
+    const item = {};
 
-      return [
-        "cse",
-        "computer science",
-        "computer science engineering",
-        "computer science and engineering"
-      ].includes(branch);
-    }
-
-    function matchesYear(value, year) {
-      const v = normalize(value);
-
-      const accepted = {
-        1: ["1", "1st", "1st year", "first year", "first"],
-        2: ["2", "2nd", "2nd year", "second year", "second"],
-        3: ["3", "3rd", "3rd year", "third year", "third"],
-        4: ["4", "4th", "4th year", "fourth year", "fourth"]
-      };
-
-      return accepted[year].includes(v);
-    }
-
-    function matchesSemester(value, semester) {
-      const v = normalize(value);
-
-      const accepted = {
-        1: [
-          "1", "sem 1", "semester 1", "sem1", "semester1",
-          "1st semester", "first semester"
-        ],
-        2: [
-          "2", "sem 2", "semester 2", "sem2", "semester2",
-          "2nd semester", "second semester"
-        ]
-      };
-
-      return accepted[semester].includes(v);
-    }
-
-    function getSubject(item) {
-      return (item["subject"] || item["title"] || "Other Materials").trim();
-    }
-
-    function getResourceType(item) {
-      return item["resource type"] || item["type"] || "";
-    }
-
-    function canonicalType(item) {
-      const type = normalize(getResourceType(item));
-
-      if (/\b(pyq|pyqs|pyq s|previous year|previous question|question paper|question papers)\b/.test(type)) {
-        return "PYQs";
-      }
-
-      if (/\b(note|notes|study material|study materials)\b/.test(type)) {
-        return "Notes";
-      }
-
-      return getResourceType(item).trim() || "Other Materials";
-    }
-
-    function getTitle(item) {
-      return item["title"] || getSubject(item) || "Study Material";
-    }
-
-    function getPDFLink(item) {
-      return item["pdf link"] || item["link"] || item["url"] || "";
-    }
-
-    function safeURL(value) {
-      try {
-        const url = new URL(value);
-        if (url.protocol === "https:" || url.protocol === "http:") {
-          return url.href;
-        }
-      } catch (error) {
-        // Invalid or missing links are shown without an open button.
-      }
-      return "";
-    }
-
-    function branchMaterials() {
-      return materials.filter(branchMatches);
-    }
-
-    function yearMaterials() {
-      return branchMaterials().filter(item =>
-        matchesYear(item["year"], selectedYear)
-      );
-    }
-
-    function semesterMaterials() {
-      return yearMaterials().filter(item =>
-        matchesSemester(item["semester"], selectedSemester)
-      );
-    }
-
-    function groupSubjects(list) {
-      const groups = new Map();
-
-      list.forEach(item => {
-        const name = getSubject(item);
-        const key = normalize(name);
-
-        if (!groups.has(key)) {
-          groups.set(key, { name, items: [] });
-        }
-
-        groups.get(key).items.push(item);
-      });
-
-      return [...groups.values()].sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-    }
-
-    function groupByYear(list) {
-      const years = new Map();
-
-      list.forEach(item => {
-        const value = item["year"];
-        for (const year of [1, 2, 3, 4]) {
-          if (matchesYear(value, year)) {
-            years.set(year, (years.get(year) || 0) + 1);
-            break;
-          }
-        }
-      });
-
-      return years;
-    }
-
-    function setHeading(kicker, title, description) {
-      document.getElementById("sectionKicker").textContent = kicker;
-      document.getElementById("sectionTitle").textContent = title;
-      document.getElementById("sectionDescription").textContent = description;
-    }
-
-    function tileHTML({ icon, title, description, meta, action, value }) {
-      return `
-        <button class="tile" type="button"
-          data-action="${escapeHTML(action)}"
-          data-value="${escapeHTML(value)}">
-          <span class="tile-icon" aria-hidden="true">${icon}</span>
-          <span class="tile-arrow" aria-hidden="true">↗</span>
-          <span class="tile-title">${escapeHTML(title)}</span>
-          <span class="tile-description">${escapeHTML(description)}</span>
-          ${meta ? `<span class="tile-meta">${escapeHTML(meta)}</span>` : ""}
-        </button>
-      `;
-    }
-
-    function emptyHTML(icon, title, description) {
-      return `
-        <article class="empty-state">
-          <div class="empty-icon" aria-hidden="true">${icon}</div>
-          <h3>${escapeHTML(title)}</h3>
-          <p>${escapeHTML(description)}</p>
-        </article>
-      `;
-    }
-
-    function renderBreadcrumb() {
-      const nav = document.getElementById("breadcrumb");
-
-      const parts = [];
-
-      if (view !== "branches" && view !== "search") {
-        parts.push({ label: "Home", action: "home" });
-      }
-
-      if (view !== "branches" && view !== "search") {
-        parts.push({ label: "CSE", action: "branch" });
-      }
-
-      if (selectedYear !== null && view !== "years") {
-        parts.push({
-          label: YEAR_NAMES[selectedYear],
-          action: "year"
-        });
-      }
-
-      if (selectedSemester !== null &&
-          !["years", "semesters"].includes(view)) {
-        parts.push({
-          label: "Semester " + selectedSemester,
-          action: "semester"
-        });
-      }
-
-      if (selectedSubject && ["types", "materials"].includes(view)) {
-        parts.push({
-          label: selectedSubject,
-          action: "subject"
-        });
-      }
-
-      if (selectedType && view === "materials") {
-        parts.push({
-          label: selectedType,
-          action: "type"
-        });
-      }
-
-      if (view === "search") {
-        parts.push({ label: "Search results", action: "search" });
-      }
-
-      nav.hidden = parts.length === 0;
-
-      nav.innerHTML = parts.map((part, index) => `
-        ${index ? '<span class="crumb-separator">/</span>' : ""}
-        <button type="button" data-crumb="${part.action}"
-          ${index === parts.length - 1 ? 'aria-current="page"' : ""}>
-          ${escapeHTML(part.label)}
-        </button>
-      `).join("");
-    }
-
-    function updateBackButton() {
-      const button = document.getElementById("backButton");
-      button.hidden = view === "branches" || view === "search";
-    }
-
-    function renderBranches() {
-      setHeading(
-        "GET STARTED",
-        "Choose your branch",
-        "Select your academic branch to explore learning resources."
-      );
-
-      contentEl.innerHTML = tileHTML({
-        icon: "💻",
-        title: "Computer Science & Engineering",
-        description: "Notes, previous question papers and subject resources.",
-        meta: "CSE · B.Tech",
-        action: "branch",
-        value: "CSE"
-      });
-    }
-
-    function renderYears() {
-      setHeading(
-        "CSE · ACADEMIC YEARS",
-        "Choose your year",
-        "Select your year to view its semesters."
-      );
-
-      const counts = groupByYear(branchMaterials());
-
-      contentEl.innerHTML = [1, 2, 3, 4].map(year => {
-        const count = counts.get(year) || 0;
-
-        return tileHTML({
-          icon: "📘",
-          title: YEAR_NAMES[year],
-          description: "Browse Semester 1 and Semester 2.",
-          meta: count + (count === 1 ? " resource" : " resources"),
-          action: "year",
-          value: String(year)
-        });
-      }).join("");
-    }
-
-    function renderSemesters() {
-      setHeading(
-        YEAR_NAMES[selectedYear].toUpperCase(),
-        "Choose your semester",
-        "Select a semester to view the subjects available for this year."
-      );
-
-      const list = yearMaterials();
-
-      contentEl.innerHTML = [1, 2].map(semester => {
-        const count = list.filter(item =>
-          matchesSemester(item["semester"], semester)
-        ).length;
-
-        return tileHTML({
-          icon: "🗂️",
-          title: "Semester " + semester,
-          description: "Open the subjects and study materials.",
-          meta: count + (count === 1 ? " resource" : " resources"),
-          action: "semester",
-          value: String(semester)
-        });
-      }).join("");
-    }
-
-    function renderSubjects() {
-      setHeading(
-        "SUBJECT CATALOGUE",
-        "Semester " + selectedSemester + " Subjects",
-        "Choose a subject to access its PYQs and notes."
-      );
-
-      const groups = groupSubjects(semesterMaterials());
-
-      if (!groups.length) {
-        contentEl.innerHTML = emptyHTML(
-          "📂",
-          "No subjects available yet",
-          "There are no matching entries for this branch, year and semester. Check your Google Sheet."
-        );
-        return;
-      }
-
-      contentEl.innerHTML = groups.map(group => tileHTML({
-        icon: "📁",
-        title: group.name,
-        description: "Open previous papers and study notes.",
-        meta: "Subject",
-        action: "subject",
-        value: group.name
-      })).join("");
-    }
-
-    function getSelectedSubjectItems() {
-      return semesterMaterials().filter(item =>
-        normalize(getSubject(item)) === normalize(selectedSubject)
-      );
-    }
-
-    function renderTypes() {
-      setHeading(
-        "SUBJECT RESOURCES",
-        selectedSubject,
-        "Choose a resource category. Its files will appear next."
-      );
-
-      const items = getSelectedSubjectItems();
-      const types = [
-        {
-          name: "PYQs",
-          icon: "📄",
-          description: "Previous year question papers"
-        },
-        {
-          name: "Notes",
-          icon: "📚",
-          description: "Notes and study materials"
-        }
-      ];
-
-      const knownTypes = new Set(["PYQs", "Notes"]);
-      const extras = [...new Set(items.map(canonicalType))]
-        .filter(type => !knownTypes.has(type));
-
-      const allTypes = types.concat(extras.map(name => ({
-        name,
-        icon: "📁",
-        description: "Additional subject resources"
-      })));
-
-      contentEl.innerHTML = allTypes.map(type => {
-        const count = items.filter(item =>
-          canonicalType(item) === type.name
-        ).length;
-
-        return tileHTML({
-          icon: type.icon,
-          title: type.name,
-          description: type.description,
-          meta: count + (count === 1 ? " item" : " items"),
-          action: "type",
-          value: type.name
-        });
-      }).join("");
-    }
-
-    function materialHTML(item, showContext) {
-      const title = getTitle(item);
-      const link = safeURL(getPDFLink(item));
-
-      const context = [
-        getBranch(item),
-        YEAR_NAMES[
-          [1, 2, 3, 4].find(year => matchesYear(item["year"], year))
-        ] || item["year"],
-        "Semester " + item["semester"],
-        getSubject(item)
-      ].filter(Boolean).join(" · ");
-
-      return `
-        <article class="material-card">
-          <span class="material-type">${escapeHTML(canonicalType(item))}</span>
-          <h3>${escapeHTML(title)}</h3>
-          ${showContext
-            ? `<div class="material-context">${escapeHTML(context)}</div>`
-            : `<div class="material-context">${escapeHTML(getSubject(item))}</div>`
-          }
-          ${
-            link
-              ? `<a class="open-link" href="${escapeHTML(link)}"
-                   target="_blank" rel="noopener noreferrer">
-                   Open material ↗
-                 </a>`
-              : `<div class="material-context">Link not added yet.</div>`
-          }
-        </article>
-      `;
-    }
-
-    function renderMaterials() {
-      setHeading(
-        selectedType.toUpperCase(),
-        selectedSubject,
-        "Open a PDF to view or download your study material."
-      );
-
-      const list = getSelectedSubjectItems().filter(item =>
-        canonicalType(item) === selectedType
-      );
-
-      if (!list.length) {
-        contentEl.innerHTML = emptyHTML(
-          "📄",
-          "No " + selectedType + " added yet",
-          "Add the resource details and shareable PDF link in Google Sheets."
-        );
-        return;
-      }
-
-      contentEl.innerHTML = list.map(item =>
-        materialHTML(item, false)
-      ).join("");
-    }
-
-    function renderSearch() {
-      const query = normalize(searchEl.value);
-
-      setHeading(
-        "RESOURCE SEARCH",
-        "Search results",
-        'Results matching "' + searchEl.value.trim() + '" across all available CSE resources.'
-      );
-
-      const results = branchMaterials().filter(item =>
-        normalize([
-          getSubject(item),
-          getTitle(item),
-          getResourceType(item),
-          item["year"],
-          item["semester"],
-          item["description"]
-        ].join(" ")).includes(query)
-      );
-
-      if (!results.length) {
-        contentEl.innerHTML = emptyHTML(
-          "🔎",
-          "No matching resources found",
-          "Try a different keyword, subject name or material title."
-        );
-        return;
-      }
-
-      contentEl.innerHTML = results.map(item =>
-        materialHTML(item, true)
-      ).join("");
-    }
-
-    function render() {
-      clearSearchEl.style.display = searchEl.value ? "block" : "none";
-
-      if (searchEl.value.trim()) {
-        view = "search";
-        renderSearch();
-      } else if (loadError) {
-        setHeading(
-          "CATALOGUE STATUS",
-          "Unable to load resources",
-          "The website is available, but its Google Sheets catalogue could not be read."
-        );
-
-        contentEl.innerHTML = emptyHTML(
-          "⚠️",
-          "Catalogue could not be loaded",
-          "Check the published CSV URL and your internet connection, then refresh."
-        );
-      } else {
-        switch (view) {
-          case "branches":
-            renderBranches();
-            break;
-          case "years":
-            renderYears();
-            break;
-          case "semesters":
-            renderSemesters();
-            break;
-          case "subjects":
-            renderSubjects();
-            break;
-          case "types":
-            renderTypes();
-            break;
-          case "materials":
-            renderMaterials();
-            break;
-          default:
-            view = "branches";
-            renderBranches();
-        }
-      }
-
-      renderBreadcrumb();
-      updateBackButton();
-    }
-
-    function goHome() {
-      view = "branches";
-      selectedBranch = BRANCH;
-      selectedYear = null;
-      selectedSemester = null;
-      selectedSubject = null;
-      selectedType = null;
-      render();
-    }
-
-    function goBack() {
-      switch (view) {
-        case "years":
-          goHome();
-          return;
-        case "semesters":
-          view = "years";
-          selectedYear = null;
-          break;
-        case "subjects":
-          view = "semesters";
-          selectedSemester = null;
-          break;
-        case "types":
-          view = "subjects";
-          selectedSubject = null;
-          break;
-        case "materials":
-          view = "types";
-          selectedType = null;
-          break;
-        default:
-          goHome();
-          return;
-      }
-
-      render();
-    }
-
-    contentEl.addEventListener("click", event => {
-      const button = event.target.closest("button[data-action]");
-      if (!button) return;
-
-      const action = button.dataset.action;
-      const value = button.dataset.value;
-
-      if (action === "branch") {
-        selectedBranch = value;
-        view = "years";
-      } else if (action === "year") {
-        selectedYear = Number(value);
-        selectedSemester = null;
-        selectedSubject = null;
-        selectedType = null;
-        view = "semesters";
-      } else if (action === "semester") {
-        selectedSemester = Number(value);
-        selectedSubject = null;
-        selectedType = null;
-        view = "subjects";
-      } else if (action === "subject") {
-        selectedSubject = value;
-        selectedType = null;
-        view = "types";
-      } else if (action === "type") {
-        selectedType = value;
-        view = "materials";
-      }
-
-      // Clear search when navigating through folders.
-      searchEl.value = "";
-      render();
+    headers.forEach((header, index) => {
+      item[header] = (values[index] || "").trim();
     });
 
-    document.getElementById("backButton").addEventListener("click", goBack);
+    return item;
+  });
+}
 
-    document.getElementById("breadcrumb").addEventListener("click", event => {
-      const button = event.target.closest("button[data-crumb]");
-      if (!button) return;
+function escapeHTML(value) {
+  return String(value || "").replace(/[&<>"']/g, ch => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[ch]);
+}
 
-      switch (button.dataset.crumb) {
-        case "home":
-        case "branch":
-          goHome();
-          break;
-        case "year":
-          view = "semesters";
-          selectedSemester = null;
-          selectedSubject = null;
-          selectedType = null;
-          render();
-          break;
-        case "semester":
-          view = "subjects";
-          selectedSubject = null;
-          selectedType = null;
-          render();
-          break;
-        case "subject":
-          view = "types";
-          selectedType = null;
-          render();
-          break;
-        case "type":
-          view = "materials";
-          render();
-          break;
+function normalize(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+/*
+  Existing rows without a branch value default to CSM.
+  New CSE rows must have branch = CSE in the spreadsheet.
+*/
+function getBranch(item) {
+  const value = String(item["branch"] || "CSM")
+    .trim()
+    .toUpperCase();
+
+  if (value === "COMPUTER SCIENCE AND ENGINEERING") return "CSE";
+  if (value === "COMPUTER SCIENCE AND MACHINE LEARNING") return "CSM";
+
+  return value;
+}
+
+function yearMatches(value) {
+  const v = normalize(value);
+
+  const accepted = {
+    1: ["1", "1st", "1st year", "first year", "first"],
+    2: ["2", "2nd", "2nd year", "second year", "second"],
+    3: ["3", "3rd", "3rd year", "third year", "third"],
+    4: ["4", "4th", "4th year", "fourth year", "fourth"]
+  };
+
+  return accepted[year].includes(v);
+}
+
+function semesterMatches(value) {
+  const v = normalize(value);
+
+  const accepted = {
+    1: [
+      "1", "sem 1", "semester 1", "sem1", "semester1",
+      "1st semester", "first semester"
+    ],
+    2: [
+      "2", "sem 2", "semester 2", "sem2", "semester2",
+      "2nd semester", "second semester"
+    ]
+  };
+
+  return accepted[semester].includes(v);
+}
+
+function getSubject(item) {
+  return (item["subject"] || item["title"] || "Other Materials").trim();
+}
+
+function getType(item) {
+  const type = normalize(item["resource type"] || "");
+
+  if (/\b(pyq|pyqs|pyq s|previous year|previous question|question paper|question papers)\b/.test(type)) {
+    return "PYQs";
+  }
+
+  if (/\b(note|notes|study material|study materials)\b/.test(type)) {
+    return "Notes";
+  }
+
+  return item["resource type"] || "Other Materials";
+}
+
+function getLink(item) {
+  return item["pdf link"] || item["link"] || item["url"] || "";
+}
+
+function safeURL(value) {
+  try {
+    const url = new URL(value);
+
+    if (url.protocol === "https:" || url.protocol === "http:") {
+      return url.href;
+    }
+  } catch (error) {}
+
+  return "";
+}
+
+/* Filter resources by the selected branch, year and semester. */
+function getCurrentMaterials() {
+  return materials.filter(item =>
+    getBranch(item) === selectedBranch &&
+    yearMatches(item["year"]) &&
+    semesterMatches(item["semester"])
+  );
+}
+
+function groupBySubject(list) {
+  const groups = new Map();
+
+  list.forEach(item => {
+    const name = getSubject(item);
+    const key = normalize(name);
+
+    if (!groups.has(key)) {
+      groups.set(key, { name, items: [] });
+    }
+
+    groups.get(key).items.push(item);
+  });
+
+  return [...groups.values()].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+}
+
+function renderFolder(name, icon, description, action, value) {
+  return `
+    <button class="card folder-card"
+      type="button"
+      data-action="${escapeHTML(action)}"
+      data-value="${escapeHTML(value)}">
+      <span class="folder-icon" aria-hidden="true">${icon}</span>
+      <strong>${escapeHTML(name)}</strong>
+      <small>${escapeHTML(description)}</small>
+    </button>
+  `;
+}
+
+function renderEmpty(title, message) {
+  resourcesEl.innerHTML = `
+    <article class="card empty">
+      <h3>${escapeHTML(title)}</h3>
+      <p>${escapeHTML(message)}</p>
+    </article>
+  `;
+}
+
+function renderMaterial(item) {
+  const title = item["title"] || getSubject(item);
+  const type = getType(item);
+  const subject = getSubject(item);
+  const link = safeURL(getLink(item));
+
+  return `
+    <article class="card">
+      <span class="label">${escapeHTML(type)}</span>
+      <h3>${escapeHTML(title)}</h3>
+      <p>${escapeHTML(subject)}</p>
+      ${
+        link
+          ? `<p><a href="${escapeHTML(link)}"
+              target="_blank" rel="noopener noreferrer">
+              Open / Download Material ↗
+            </a></p>`
+          : `<p>Material link will be added soon.</p>`
       }
+    </article>
+  `;
+}
+
+function renderSearchResults(list) {
+  document.getElementById("sectionTitle").textContent = "Search Results";
+
+  document.getElementById("breadcrumb").textContent =
+    selectedBranch + " / " + yearNames[year] +
+    " / Semester " + semester + " / Search";
+
+  document.getElementById("backButton").hidden = true;
+
+  if (!list.length) {
+    renderEmpty(
+      "No matching materials found",
+      "Try another keyword or select a different year or semester."
+    );
+    return;
+  }
+
+  resourcesEl.innerHTML = list.map(renderMaterial).join("");
+}
+
+function renderSubjects(list) {
+  document.getElementById("sectionTitle").textContent = "Subjects";
+
+  document.getElementById("breadcrumb").textContent =
+    selectedBranch + " / " + yearNames[year] +
+    " / Semester " + semester;
+
+  document.getElementById("backButton").hidden = true;
+
+  const groups = groupBySubject(list);
+
+  if (!groups.length) {
+    renderEmpty(
+      "No subjects found",
+      "There are no materials for this year and semester yet."
+    );
+    return;
+  }
+
+  resourcesEl.innerHTML = groups.map(group =>
+    renderFolder(
+      group.name,
+      "📁",
+      "Open subject materials",
+      "subject",
+      group.name
+    )
+  ).join("");
+}
+
+function renderTypes(list) {
+  document.getElementById("sectionTitle").textContent = selectedSubject;
+
+  document.getElementById("breadcrumb").textContent =
+    selectedBranch + " / " + yearNames[year] +
+    " / Semester " + semester + " / " + selectedSubject;
+
+  document.getElementById("backButton").hidden = false;
+
+  const subjectItems = list.filter(item =>
+    normalize(getSubject(item)) === normalize(selectedSubject)
+  );
+
+  const types = ["PYQs", "Notes"];
+
+  resourcesEl.innerHTML = types.map(type => {
+    const matching = subjectItems.filter(item => getType(item) === type);
+
+    return renderFolder(
+      type,
+      type === "PYQs" ? "📄" : "📚",
+      matching.length + (matching.length === 1 ? " resource" : " resources"),
+      "type",
+      type
+    );
+  }).join("");
+
+  const otherTypes = [...new Set(
+    subjectItems
+      .map(getType)
+      .filter(type => !types.includes(type))
+  )];
+
+  otherTypes.forEach(type => {
+    resourcesEl.innerHTML += renderFolder(
+      type,
+      "📁",
+      "Additional subject materials",
+      "type",
+      type
+    );
+  });
+}
+
+function renderTypeMaterials(list) {
+  document.getElementById("sectionTitle").textContent = selectedType;
+
+  document.getElementById("breadcrumb").textContent =
+    selectedBranch + " / " + yearNames[year] +
+    " / Semester " + semester + " / " +
+    selectedSubject + " / " + selectedType;
+
+  document.getElementById("backButton").hidden = false;
+
+  const matching = list.filter(item =>
+    normalize(getSubject(item)) === normalize(selectedSubject) &&
+    getType(item) === selectedType
+  );
+
+  if (!matching.length) {
+    renderEmpty(
+      "No " + selectedType + " available yet",
+      "Add the relevant resources to your published Google Sheet."
+    );
+    return;
+  }
+
+  resourcesEl.innerHTML = matching.map(renderMaterial).join("");
+}
+
+function render() {
+  if (!selectedBranch) return;
+
+  document.getElementById("branchTitle").textContent =
+    selectedBranch + " Resources";
+
+  document.getElementById("yearTitle").textContent =
+    selectedBranch + " — " + yearNames[year] + " Resources";
+
+  const query = normalize(searchEl.value);
+  const list = getCurrentMaterials();
+
+  if (query) {
+    const matches = list.filter(item =>
+      normalize(Object.values(item).join(" ")).includes(query)
+    );
+
+    renderSearchResults(matches);
+    return;
+  }
+
+  if (loadError) {
+    renderEmpty(
+      "Could not load materials",
+      "Check that your Google Sheet is published as CSV, then refresh."
+    );
+    return;
+  }
+
+  if (selectedType !== null) {
+    renderTypeMaterials(list);
+  } else if (selectedSubject !== null) {
+    renderTypes(list);
+  } else {
+    renderSubjects(list);
+  }
+}
+
+function resetNavigation() {
+  selectedSubject = null;
+  selectedType = null;
+}
+
+/* Branch selection: CSM and CSE use the same navigation. */
+document.querySelectorAll(".branch-card").forEach(button => {
+  button.addEventListener("click", () => {
+    selectedBranch = button.dataset.branch;
+
+    year = 1;
+    semester = 1;
+    searchEl.value = "";
+    resetNavigation();
+
+    document.querySelectorAll(".year").forEach(b => {
+      b.classList.toggle("active", Number(b.dataset.year) === year);
     });
 
-    searchEl.addEventListener("input", render);
-
-    clearSearchEl.addEventListener("click", () => {
-      searchEl.value = "";
-      render();
-      searchEl.focus();
+    document.querySelectorAll(".sem").forEach(b => {
+      b.classList.toggle("active", Number(b.dataset.sem) === semester);
     });
 
-    fetch(CSV_URL)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Google Sheets CSV request failed");
-        }
-        return response.text();
-      })
-      .then(text => {
-        materials = parseCSV(text);
+    branchScreenEl.hidden = true;
+    academicScreenEl.hidden = false;
 
-        if (!materials.length) {
-          throw new Error("No catalogue rows were found");
-        }
-
-        loadError = false;
-        render();
-      })
-      .catch(error => {
-        loadError = true;
-        render();
-        console.error("NGIT Academic Hub catalogue error:", error);
-      });
-
-    // Show the initial branch selection immediately.
     render();
-  </script>
+  });
+});
+
+/* Return to the branch selection screen. */
+document.getElementById("changeBranchButton").addEventListener("click", () => {
+  selectedBranch = null;
+  searchEl.value = "";
+  resetNavigation();
+
+  branchScreenEl.hidden = false;
+  academicScreenEl.hidden = true;
+});
+
+/* Year navigation. */
+document.querySelectorAll(".year").forEach(button => {
+  button.addEventListener("click", () => {
+    year = Number(button.dataset.year);
+    resetNavigation();
+
+    document.querySelectorAll(".year").forEach(b => {
+      b.classList.toggle("active", b === button);
+    });
+
+    render();
+  });
+});
+
+/* Semester navigation. */
+document.querySelectorAll(".sem").forEach(button => {
+  button.addEventListener("click", () => {
+    semester = Number(button.dataset.sem);
+    resetNavigation();
+
+    document.querySelectorAll(".sem").forEach(b => {
+      b.classList.toggle("active", b === button);
+    });
+
+    render();
+  });
+});
+
+/* Subject and resource-type folder navigation. */
+resourcesEl.addEventListener("click", event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+
+  const action = button.dataset.action;
+  const value = button.dataset.value;
+
+  if (action === "subject") {
+    selectedSubject = value;
+    selectedType = null;
+  } else if (action === "type") {
+    selectedType = value;
+  }
+
+  render();
+});
+
+/* Back from a resource type to its subject. */
+document.getElementById("backButton").addEventListener("click", () => {
+  if (selectedType !== null) {
+    selectedType = null;
+  } else {
+    selectedSubject = null;
+  }
+
+  render();
+});
+
+/* Search within the selected branch, year and semester. */
+searchEl.addEventListener("input", render);
+
+/* Load the existing published Google Sheet. */
+fetch(CSV_URL)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Could not load Google Sheets CSV");
+    }
+
+    return response.text();
+  })
+  .then(text => {
+    materials = parseCSV(text);
+
+    if (!materials.length) {
+      throw new Error("The published spreadsheet has no readable rows");
+    }
+
+    render();
+  })
+  .catch(error => {
+    loadError = true;
+    console.error("Catalogue loading error:", error);
+  });
+</script>
 </body>
 </html>
