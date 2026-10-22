@@ -1,0 +1,313 @@
+<div class="site">
+  <header>
+    <div class="brand">🎓 NGIT <span>ACADEMIC HUB</span></div>
+    <p>Your four-year BTech learning companion</p>
+  </header>
+
+  <section class="hero">
+    <p class="tag">YOUR COLLEGE. YOUR RESOURCES.</p>
+    <h1>Learn better.<br>Prepare smarter.</h1>
+    <p>Find notes, previous papers and lab materials in one place.</p>
+    <input id="search" placeholder="Search subjects or materials...">
+  </section>
+
+  <main>
+    <h2>Explore your academic year</h2>
+    <p>Select a year to explore its semesters.</p>
+
+    <div class="years">
+      <button class="year active" data-year="1">First Year</button>
+      <button class="year" data-year="2">Second Year</button>
+      <button class="year" data-year="3">Third Year</button>
+      <button class="year" data-year="4">Fourth Year</button>
+    </div>
+
+    <h2 id="yearTitle">First Year Resources</h2>
+
+    <div class="semesters">
+      <button class="sem active" data-sem="1">Semester 1</button>
+      <button class="sem" data-sem="2">Semester 2</button>
+    </div>
+
+    <div id="resources" class="resources">
+      <article class="card"><h3>Loading materials...</h3></article>
+    </div>
+  </main>
+
+  <footer>NGIT Academic Hub · An independent student resource project</footer>
+</div>
+
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #f3f6fb;
+    color: #17243b;
+    font-family: Arial, sans-serif;
+  }
+
+  header {
+    background: #10233f;
+    color: white;
+    padding: 25px max(6%, 20px);
+  }
+
+  .brand { font-size: 23px; font-weight: bold; }
+  .brand span { color: #83c5ff; }
+  header p { color: #c6d5e8; }
+
+  .hero {
+    background: linear-gradient(120deg, #10233f, #205a89);
+    color: white;
+    padding: 48px max(6%, 20px) 55px;
+  }
+
+  .tag { color: #a9dcff; font-size: 12px; letter-spacing: 2px; }
+  h1 { font-size: clamp(34px, 6vw, 55px); margin: 12px 0; }
+  .hero p { line-height: 1.7; }
+
+  input {
+    width: 100%;
+    max-width: 520px;
+    padding: 15px;
+    border: 0;
+    border-radius: 9px;
+    margin-top: 14px;
+    font-size: 15px;
+  }
+
+  main { max-width: 1000px; margin: auto; padding: 28px 20px; }
+  h2 { margin-top: 28px; }
+
+  .years, .semesters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .semesters { grid-template-columns: repeat(2, 1fr); }
+
+  button {
+    cursor: pointer;
+    padding: 13px 8px;
+    border-radius: 9px;
+    border: 1px solid #d6dfeb;
+    background: white;
+    color: #17243b;
+    font-weight: bold;
+  }
+
+  button.active {
+    background: #175b91;
+    color: white;
+    border-color: #175b91;
+  }
+
+  .resources {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 20px 0 45px;
+  }
+
+  .card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e0e7f0;
+    overflow-wrap: anywhere;
+  }
+
+  .card p { color: #64748b; line-height: 1.5; }
+  .label { color: #17669f; font-size: 12px; font-weight: bold; }
+
+  .card a {
+    color: #175b91;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .card a:hover { text-decoration: underline; }
+
+  footer {
+    background: #10233f;
+    color: #d5dfec;
+    padding: 25px;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  @media(max-width: 600px) {
+    .years { grid-template-columns: repeat(2, 1fr); }
+    .resources { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRe5lFuEHIxpb8AclNzp1VXrnlyQabsNntKSC9_XltwGhIDkoolgMe3k5ELzeJIQWVGM7BxD-wwe3P6/pub?gid=0&single=true&output=csv";
+
+let year = 1;
+let semester = 1;
+let materials = [];
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+
+    if (ch === '"' && quoted && text[i + 1] === '"') {
+      cell += '"';
+      i++;
+    } else if (ch === '"') {
+      quoted = !quoted;
+    } else if (ch === "," && !quoted) {
+      row.push(cell.trim());
+      cell = "";
+    } else if ((ch === "\n" || ch === "\r") && !quoted) {
+      if (ch === "\r" && text[i + 1] === "\n") i++;
+      row.push(cell.trim());
+      if (row.some(v => v !== "")) rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += ch;
+    }
+  }
+
+  row.push(cell.trim());
+  if (row.some(v => v !== "")) rows.push(row);
+  if (!rows.length) return [];
+
+  const headers = rows.shift().map(h => h.toLowerCase().trim());
+
+  return rows.map(values => {
+    const item = {};
+    headers.forEach((header, index) => {
+      item[header] = values[index] || "";
+    });
+    return item;
+  });
+}
+
+function escapeHTML(value) {
+  return String(value || "").replace(/[&<>"']/g, ch => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[ch]);
+}
+
+function yearMatches(value) {
+  const v = String(value || "").trim().toLowerCase();
+  const accepted = {
+    1: ["1", "1st", "1st year", "first year", "first"],
+    2: ["2", "2nd", "2nd year", "second year", "second"],
+    3: ["3", "3rd", "3rd year", "third year", "third"],
+    4: ["4", "4th", "4th year", "fourth year", "fourth"]
+  };
+  return accepted[year].includes(v);
+}
+
+function semesterMatches(value) {
+  const v = String(value || "").trim().toLowerCase();
+  const accepted = {
+    1: ["1", "sem 1", "semester 1", "sem1", "semester1", "1st semester"],
+    2: ["2", "sem 2", "semester 2", "sem2", "semester2", "2nd semester"]
+  };
+  return accepted[semester].includes(v);
+}
+
+function render() {
+  document.getElementById("yearTitle").textContent =
+    ["", "First", "Second", "Third", "Fourth"][year] + " Year Resources";
+
+  const query = document.getElementById("search").value.trim().toLowerCase();
+
+  const list = materials.filter(item => {
+    const searchable = Object.values(item).join(" ").toLowerCase();
+    return yearMatches(item["year"]) &&
+      semesterMatches(item["semester"]) &&
+      searchable.includes(query);
+  });
+
+  const resources = document.getElementById("resources");
+
+  if (!list.length) {
+    resources.innerHTML = `<article class="card">
+      <h3>${materials.length ? "No matching resources yet" : "No materials loaded"}</h3>
+      <p>${materials.length
+        ? "Try another search or semester."
+        : "Check your published Google Sheet and refresh this page."}</p>
+    </article>`;
+    return;
+  }
+
+  resources.innerHTML = list.map(item => {
+    const title = item["title"] || item["subject"] || "Study Material";
+    const subject = item["subject"] || "";
+    const type = item["resource type"] || "Study Material";
+    const link = item["pdf link"] || "";
+
+    let linkButton = "";
+    try {
+      const url = new URL(link);
+      if (url.protocol === "https:" || url.protocol === "http:") {
+        linkButton = `<p><a href="${escapeHTML(url.href)}"
+          target="_blank" rel="noopener noreferrer">Open / Download Material ↗</a></p>`;
+      }
+    } catch (error) {}
+
+    return `<article class="card">
+      <span class="label">${escapeHTML(type)}</span>
+      <h3>${escapeHTML(title)}</h3>
+      ${subject ? `<p>${escapeHTML(subject)}</p>` : ""}
+      ${linkButton || "<p>Material link will be added soon.</p>"}
+    </article>`;
+  }).join("");
+}
+
+document.querySelectorAll(".year").forEach(button => {
+  button.addEventListener("click", () => {
+    year = Number(button.dataset.year);
+    document.querySelectorAll(".year").forEach(b =>
+      b.classList.toggle("active", b === button));
+    render();
+  });
+});
+
+document.querySelectorAll(".sem").forEach(button => {
+  button.addEventListener("click", () => {
+    semester = Number(button.dataset.sem);
+    document.querySelectorAll(".sem").forEach(b =>
+      b.classList.toggle("active", b === button));
+    render();
+  });
+});
+
+document.getElementById("search").addEventListener("input", render);
+
+fetch(CSV_URL)
+  .then(response => {
+    if (!response.ok) throw new Error("Could not load Google Sheets CSV");
+    return response.text();
+  })
+  .then(text => {
+    materials = parseCSV(text);
+    render();
+  })
+  .catch(error => {
+    document.getElementById("resources").innerHTML =
+      `<article class="card">
+        <h3>Could not load materials</h3>
+        <p>Make sure the Google Sheet is published as CSV, then refresh.</p>
+      </article>`;
+    console.error("Catalogue loading error:", error);
+  });
+</script>
