@@ -1,11 +1,213 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>NGIT Acadamic Hub</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="google-site-verification" content="4hGkXzJIncqYjntyOc_XJFxn-DpveA-mRmkrNGhc4IE" />a
+  <meta name="google-site-verification" content="4hGkXzJIncqYjntyOc_XJFxn-DpveA-mRmkrNGhc4IE">
+  <meta name="description" content="NGIT Academic Hub: Find BTech notes, previous question papers and study materials.">
+  <title>NGIT Academic Hub</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #f3f6fb;
+      color: #17243b;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #10233f;
+      color: white;
+      padding: 25px max(6%, 20px);
+    }
+
+    .brand { font-size: 23px; font-weight: bold; }
+    .brand span { color: #83c5ff; }
+    header p { color: #c6d5e8; }
+
+    .hero {
+      background: linear-gradient(120deg, #10233f, #205a89);
+      color: white;
+      padding: 48px max(6%, 20px) 55px;
+    }
+
+    .tag { color: #a9dcff; font-size: 12px; letter-spacing: 2px; }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 55px);
+      margin: 12px 0;
+    }
+
+    .hero p { line-height: 1.7; }
+
+    #search {
+      width: 100%;
+      max-width: 520px;
+      padding: 15px;
+      border: 0;
+      border-radius: 9px;
+      margin-top: 14px;
+      font-size: 15px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 28px 20px;
+      min-height: 400px;
+    }
+
+    h2 { margin-top: 28px; }
+
+    .years, .semesters {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .semesters { grid-template-columns: repeat(2, 1fr); }
+
+    button {
+      cursor: pointer;
+      padding: 13px 8px;
+      border-radius: 9px;
+      border: 1px solid #d6dfeb;
+      background: white;
+      color: #17243b;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button:hover { border-color: #175b91; }
+
+    button.active {
+      background: #175b91;
+      color: white;
+      border-color: #175b91;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-heading h2 { margin-bottom: 8px; }
+
+    .small-button {
+      padding: 9px 13px;
+      font-size: 13px;
+    }
+
+    .breadcrumb {
+      margin: 18px 0;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .breadcrumb button {
+      padding: 3px 5px;
+      border: none;
+      background: transparent;
+      color: #175b91;
+      text-decoration: underline;
+    }
+
+    .resources {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0 45px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #e0e7f0;
+      overflow-wrap: anywhere;
+      min-width: 0;
+    }
+
+    .card h3 { margin: 10px 0; }
+
+    .card p {
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .folder-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      width: 100%;
+      min-height: 125px;
+      padding: 20px;
+      gap: 8px;
+    }
+
+    .folder-icon {
+      font-size: 27px;
+    }
+
+    .folder-card strong { font-size: 16px; }
+
+    .folder-card small {
+      color: #64748b;
+      font-weight: normal;
+      line-height: 1.5;
+    }
+
+    .label {
+      color: #17669f;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card a {
+      display: inline-block;
+      color: #175b91;
+      font-weight: bold;
+      text-decoration: none;
+      margin-top: 5px;
+    }
+
+    .card a:hover { text-decoration: underline; }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .empty p { color: #64748b; }
+
+    footer {
+      background: #10233f;
+      color: #d5dfec;
+      padding: 25px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media(max-width: 600px) {
+      .years { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .resources { grid-template-columns: 1fr; }
+      main { padding: 20px 15px; }
+      .hero { padding-top: 35px; }
+    }
+  </style>
 </head>
+
 <body>
 <div class="site">
   <header>
@@ -17,12 +219,18 @@
     <p class="tag">YOUR COLLEGE. YOUR RESOURCES.</p>
     <h1>Learn better.<br>Prepare smarter.</h1>
     <p>Find notes, previous papers and lab materials in one place.</p>
-    <input id="search" placeholder="Search subjects or materials...">
+    <input
+      id="search"
+      type="search"
+      placeholder="Search subjects or materials..."
+      aria-label="Search subjects or study materials"
+      autocomplete="off"
+    >
   </section>
 
   <main>
     <h2>Explore your academic year</h2>
-    <p>Select a year to explore its semesters.</p>
+    <p>Select a year and semester to explore its subjects.</p>
 
     <div class="years">
       <button class="year active" data-year="1">First Year</button>
@@ -38,120 +246,25 @@
       <button class="sem" data-sem="2">Semester 2</button>
     </div>
 
-    <div id="resources" class="resources">
-      <article class="card"><h3>Loading materials...</h3></article>
+    <div class="section-heading">
+      <h2 id="sectionTitle">Subjects</h2>
+      <button id="backButton" class="small-button" hidden>
+        ← Back
+      </button>
+    </div>
+
+    <div id="breadcrumb" class="breadcrumb"></div>
+
+    <div id="resources" class="resources" aria-live="polite">
+      <article class="card">
+        <h3>Loading materials...</h3>
+        <p>Please wait while the catalogue loads.</p>
+      </article>
     </div>
   </main>
 
   <footer>NGIT Academic Hub · An independent student resource project</footer>
 </div>
-
-<style>
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    background: #f3f6fb;
-    color: #17243b;
-    font-family: Arial, sans-serif;
-  }
-
-  header {
-    background: #10233f;
-    color: white;
-    padding: 25px max(6%, 20px);
-  }
-
-  .brand { font-size: 23px; font-weight: bold; }
-  .brand span { color: #83c5ff; }
-  header p { color: #c6d5e8; }
-
-  .hero {
-    background: linear-gradient(120deg, #10233f, #205a89);
-    color: white;
-    padding: 48px max(6%, 20px) 55px;
-  }
-
-  .tag { color: #a9dcff; font-size: 12px; letter-spacing: 2px; }
-  h1 { font-size: clamp(34px, 6vw, 55px); margin: 12px 0; }
-  .hero p { line-height: 1.7; }
-
-  input {
-    width: 100%;
-    max-width: 520px;
-    padding: 15px;
-    border: 0;
-    border-radius: 9px;
-    margin-top: 14px;
-    font-size: 15px;
-  }
-
-  main { max-width: 1000px; margin: auto; padding: 28px 20px; }
-  h2 { margin-top: 28px; }
-
-  .years, .semesters {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-
-  .semesters { grid-template-columns: repeat(2, 1fr); }
-
-  button {
-    cursor: pointer;
-    padding: 13px 8px;
-    border-radius: 9px;
-    border: 1px solid #d6dfeb;
-    background: white;
-    color: #17243b;
-    font-weight: bold;
-  }
-
-  button.active {
-    background: #175b91;
-    color: white;
-    border-color: #175b91;
-  }
-
-  .resources {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin: 20px 0 45px;
-  }
-
-  .card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #e0e7f0;
-    overflow-wrap: anywhere;
-  }
-
-  .card p { color: #64748b; line-height: 1.5; }
-  .label { color: #17669f; font-size: 12px; font-weight: bold; }
-
-  .card a {
-    color: #175b91;
-    font-weight: bold;
-    text-decoration: none;
-  }
-
-  .card a:hover { text-decoration: underline; }
-
-  footer {
-    background: #10233f;
-    color: #d5dfec;
-    padding: 25px;
-    text-align: center;
-    font-size: 13px;
-  }
-
-  @media(max-width: 600px) {
-    .years { grid-template-columns: repeat(2, 1fr); }
-    .resources { grid-template-columns: 1fr; }
-  }
-</style>
 
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRe5lFuEHIxpb8AclNzp1VXrnlyQabsNntKSC9_XltwGhIDkoolgMe3k5ELzeJIQWVGM7BxD-wwe3P6/pub?gid=0&single=true&output=csv";
@@ -159,6 +272,19 @@ const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRe5lFuEHIxpb8A
 let year = 1;
 let semester = 1;
 let materials = [];
+let selectedSubject = null;
+let selectedType = null;
+let loadError = false;
+
+const resourcesEl = document.getElementById("resources");
+const searchEl = document.getElementById("search");
+
+const yearNames = {
+  1: "First Year",
+  2: "Second Year",
+  3: "Third Year",
+  4: "Fourth Year"
+};
 
 function parseCSV(text) {
   const rows = [];
@@ -179,8 +305,10 @@ function parseCSV(text) {
       cell = "";
     } else if ((ch === "\n" || ch === "\r") && !quoted) {
       if (ch === "\r" && text[i + 1] === "\n") i++;
+
       row.push(cell.trim());
       if (row.some(v => v !== "")) rows.push(row);
+
       row = [];
       cell = "";
     } else {
@@ -192,13 +320,17 @@ function parseCSV(text) {
   if (row.some(v => v !== "")) rows.push(row);
   if (!rows.length) return [];
 
-  const headers = rows.shift().map(h => h.toLowerCase().trim());
+  const headers = rows.shift().map(h =>
+    h.replace(/^\uFEFF/, "").toLowerCase().trim()
+  );
 
   return rows.map(values => {
     const item = {};
+
     headers.forEach((header, index) => {
-      item[header] = values[index] || "";
+      item[header] = (values[index] || "").trim();
     });
+
     return item;
   });
 }
@@ -213,80 +345,314 @@ function escapeHTML(value) {
   })[ch]);
 }
 
+function normalize(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
 function yearMatches(value) {
-  const v = String(value || "").trim().toLowerCase();
+  const v = normalize(value);
+
   const accepted = {
     1: ["1", "1st", "1st year", "first year", "first"],
     2: ["2", "2nd", "2nd year", "second year", "second"],
     3: ["3", "3rd", "3rd year", "third year", "third"],
     4: ["4", "4th", "4th year", "fourth year", "fourth"]
   };
+
   return accepted[year].includes(v);
 }
 
 function semesterMatches(value) {
-  const v = String(value || "").trim().toLowerCase();
+  const v = normalize(value);
+
   const accepted = {
-    1: ["1", "sem 1", "semester 1", "sem1", "semester1", "1st semester"],
-    2: ["2", "sem 2", "semester 2", "sem2", "semester2", "2nd semester"]
+    1: ["1", "sem 1", "semester 1", "sem1", "semester1",
+        "1st semester", "first semester"],
+    2: ["2", "sem 2", "semester 2", "sem2", "semester2",
+        "2nd semester", "second semester"]
   };
+
   return accepted[semester].includes(v);
+}
+
+function getSubject(item) {
+  return (item["subject"] || item["title"] || "Other Materials").trim();
+}
+
+function getType(item) {
+  const type = normalize(item["resource type"] || "");
+
+  if (/\b(pyq|pyqs|previous year|previous question|question paper)\b/.test(type)) {
+    return "PYQs";
+  }
+
+  if (/\b(note|notes|study material)\b/.test(type)) {
+    return "Notes";
+  }
+
+  return item["resource type"] || "Other Materials";
+}
+
+function getLink(item) {
+  return item["pdf link"] || item["link"] || item["url"] || "";
+}
+
+function safeURL(value) {
+  try {
+    const url = new URL(value);
+
+    if (url.protocol === "https:" || url.protocol === "http:") {
+      return url.href;
+    }
+  } catch (error) {}
+
+  return "";
+}
+
+function getCurrentMaterials() {
+  return materials.filter(item =>
+    yearMatches(item["year"]) &&
+    semesterMatches(item["semester"])
+  );
+}
+
+function groupBySubject(list) {
+  const groups = new Map();
+
+  list.forEach(item => {
+    const name = getSubject(item);
+    const key = normalize(name);
+
+    if (!groups.has(key)) {
+      groups.set(key, { name, items: [] });
+    }
+
+    groups.get(key).items.push(item);
+  });
+
+  return [...groups.values()].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+}
+
+function renderFolder(name, icon, description, onClick) {
+  // Folder navigation is handled through delegated click events.
+  return `
+    <button class="card folder-card"
+      type="button"
+      data-action="${escapeHTML(onClick.action)}"
+      data-value="${escapeHTML(onClick.value)}">
+      <span class="folder-icon" aria-hidden="true">${icon}</span>
+      <strong>${escapeHTML(name)}</strong>
+      <small>${escapeHTML(description)}</small>
+    </button>
+  `;
+}
+
+function renderEmpty(title, message) {
+  resourcesEl.innerHTML = `
+    <article class="card empty">
+      <h3>${escapeHTML(title)}</h3>
+      <p>${escapeHTML(message)}</p>
+    </article>
+  `;
+}
+
+function renderMaterial(item) {
+  const title = item["title"] || getSubject(item);
+  const type = getType(item);
+  const subject = getSubject(item);
+  const link = safeURL(getLink(item));
+
+  return `
+    <article class="card">
+      <span class="label">${escapeHTML(type)}</span>
+      <h3>${escapeHTML(title)}</h3>
+      <p>${escapeHTML(subject)}</p>
+      ${
+        link
+          ? `<p><a href="${escapeHTML(link)}"
+              target="_blank" rel="noopener noreferrer">
+              Open / Download Material ↗
+            </a></p>`
+          : `<p>Material link will be added soon.</p>`
+      }
+    </article>
+  `;
+}
+
+function renderSearchResults(list) {
+  document.getElementById("sectionTitle").textContent =
+    "Search Results";
+
+  document.getElementById("breadcrumb").textContent =
+    yearNames[year] + " / Semester " + semester + " / Search";
+
+  document.getElementById("backButton").hidden = true;
+
+  if (!list.length) {
+    renderEmpty(
+      "No matching materials found",
+      "Try another keyword or select a different year or semester."
+    );
+    return;
+  }
+
+  resourcesEl.innerHTML = list.map(renderMaterial).join("");
+}
+
+function renderSubjects(list) {
+  document.getElementById("sectionTitle").textContent = "Subjects";
+
+  document.getElementById("breadcrumb").textContent =
+    yearNames[year] + " / Semester " + semester;
+
+  document.getElementById("backButton").hidden = true;
+
+  const groups = groupBySubject(list);
+
+  if (!groups.length) {
+    renderEmpty(
+      "No subjects found",
+      "There are no materials for this year and semester yet."
+    );
+    return;
+  }
+
+  resourcesEl.innerHTML = groups.map(group =>
+    renderFolder(
+      group.name,
+      "📁",
+      "Open subject materials",
+      { action: "subject", value: group.name }
+    )
+  ).join("");
+}
+
+function renderTypes(list) {
+  document.getElementById("sectionTitle").textContent =
+    selectedSubject;
+
+  document.getElementById("breadcrumb").textContent =
+    yearNames[year] + " / Semester " + semester + " / " +
+    selectedSubject;
+
+  document.getElementById("backButton").hidden = false;
+
+  const subjectItems = list.filter(item =>
+    normalize(getSubject(item)) === normalize(selectedSubject)
+  );
+
+  const types = ["PYQs", "Notes"];
+
+  resourcesEl.innerHTML = types.map(type => {
+    const matching = subjectItems.filter(item =>
+      getType(item) === type
+    );
+
+    return renderFolder(
+      type,
+      type === "PYQs" ? "📄" : "📚",
+      matching.length + (matching.length === 1
+        ? " resource"
+        : " resources"),
+      { action: "type", value: type }
+    );
+  }).join("");
+
+  const otherTypes = [...new Set(subjectItems
+    .map(getType)
+    .filter(type => !types.includes(type))
+  )];
+
+  otherTypes.forEach(type => {
+    resourcesEl.innerHTML += renderFolder(
+      type,
+      "📁",
+      "Additional subject materials",
+      { action: "type", value: type }
+    );
+  });
+}
+
+function renderTypeMaterials(list) {
+  document.getElementById("sectionTitle").textContent =
+    selectedType;
+
+  document.getElementById("breadcrumb").textContent =
+    yearNames[year] + " / Semester " + semester + " / " +
+    selectedSubject + " / " + selectedType;
+
+  document.getElementById("backButton").hidden = false;
+
+  const matching = list.filter(item =>
+    normalize(getSubject(item)) === normalize(selectedSubject) &&
+    getType(item) === selectedType
+  );
+
+  if (!matching.length) {
+    renderEmpty(
+      "No " + selectedType + " available yet",
+      "Add the relevant resources to your published Google Sheet."
+    );
+    return;
+  }
+
+  resourcesEl.innerHTML = matching.map(renderMaterial).join("");
 }
 
 function render() {
   document.getElementById("yearTitle").textContent =
-    ["", "First", "Second", "Third", "Fourth"][year] + " Year Resources";
+    yearNames[year] + " Resources";
 
-  const query = document.getElementById("search").value.trim().toLowerCase();
+  const query = normalize(searchEl.value);
+  const list = getCurrentMaterials();
 
-  const list = materials.filter(item => {
-    const searchable = Object.values(item).join(" ").toLowerCase();
-    return yearMatches(item["year"]) &&
-      semesterMatches(item["semester"]) &&
-      searchable.includes(query);
-  });
+  // Searching displays matching materials directly.
+  // The normal view continues to show folders.
+  if (query) {
+    const matches = list.filter(item =>
+      normalize(Object.values(item).join(" ")).includes(query)
+    );
 
-  const resources = document.getElementById("resources");
-
-  if (!list.length) {
-    resources.innerHTML = `<article class="card">
-      <h3>${materials.length ? "No matching resources yet" : "No materials loaded"}</h3>
-      <p>${materials.length
-        ? "Try another search or semester."
-        : "Check your published Google Sheet and refresh this page."}</p>
-    </article>`;
+    renderSearchResults(matches);
     return;
   }
 
-  resources.innerHTML = list.map(item => {
-    const title = item["title"] || item["subject"] || "Study Material";
-    const subject = item["subject"] || "";
-    const type = item["resource type"] || "Study Material";
-    const link = item["pdf link"] || "";
+  if (loadError) {
+    renderEmpty(
+      "Could not load materials",
+      "Check that your Google Sheet is published as CSV, then refresh."
+    );
+    return;
+  }
 
-    let linkButton = "";
-    try {
-      const url = new URL(link);
-      if (url.protocol === "https:" || url.protocol === "http:") {
-        linkButton = `<p><a href="${escapeHTML(url.href)}"
-          target="_blank" rel="noopener noreferrer">Open / Download Material ↗</a></p>`;
-      }
-    } catch (error) {}
+  if (selectedType !== null) {
+    renderTypeMaterials(list);
+  } else if (selectedSubject !== null) {
+    renderTypes(list);
+  } else {
+    renderSubjects(list);
+  }
+}
 
-    return `<article class="card">
-      <span class="label">${escapeHTML(type)}</span>
-      <h3>${escapeHTML(title)}</h3>
-      ${subject ? `<p>${escapeHTML(subject)}</p>` : ""}
-      ${linkButton || "<p>Material link will be added soon.</p>"}
-    </article>`;
-  }).join("");
+function resetNavigation() {
+  selectedSubject = null;
+  selectedType = null;
 }
 
 document.querySelectorAll(".year").forEach(button => {
   button.addEventListener("click", () => {
     year = Number(button.dataset.year);
+    resetNavigation();
+
     document.querySelectorAll(".year").forEach(b =>
-      b.classList.toggle("active", b === button));
+      b.classList.toggle("active", b === button)
+    );
+
     render();
   });
 });
@@ -294,31 +660,68 @@ document.querySelectorAll(".year").forEach(button => {
 document.querySelectorAll(".sem").forEach(button => {
   button.addEventListener("click", () => {
     semester = Number(button.dataset.sem);
+    resetNavigation();
+
     document.querySelectorAll(".sem").forEach(b =>
-      b.classList.toggle("active", b === button));
+      b.classList.toggle("active", b === button)
+    );
+
     render();
   });
 });
 
-document.getElementById("search").addEventListener("input", render);
+resourcesEl.addEventListener("click", event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+
+  const action = button.dataset.action;
+  const value = button.dataset.value;
+
+  if (action === "subject") {
+    selectedSubject = value;
+    selectedType = null;
+  } else if (action === "type") {
+    selectedType = value;
+  }
+
+  render();
+});
+
+document.getElementById("backButton").addEventListener("click", () => {
+  if (selectedType !== null) {
+    selectedType = null;
+  } else {
+    selectedSubject = null;
+  }
+
+  render();
+});
+
+searchEl.addEventListener("input", render);
 
 fetch(CSV_URL)
   .then(response => {
-    if (!response.ok) throw new Error("Could not load Google Sheets CSV");
+    if (!response.ok) {
+      throw new Error("Could not load Google Sheets CSV");
+    }
+
     return response.text();
   })
   .then(text => {
     materials = parseCSV(text);
+
+    if (!materials.length) {
+      throw new Error("The published spreadsheet has no readable rows");
+    }
+
     render();
   })
   .catch(error => {
-    document.getElementById("resources").innerHTML =
-      `<article class="card">
-        <h3>Could not load materials</h3>
-        <p>Make sure the Google Sheet is published as CSV, then refresh.</p>
-      </article>`;
+    loadError = true;
+    render();
+
     console.error("Catalogue loading error:", error);
   });
 </script>
-  </body>
+</body>
 </html>
