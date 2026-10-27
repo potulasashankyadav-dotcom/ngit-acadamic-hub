@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -284,7 +283,7 @@
       </div>
     </section>
 
-    <!-- EXISTING ACADEMIC NAVIGATION -->
+    <!-- ACADEMIC NAVIGATION -->
     <section id="academicScreen" hidden>
 
       <div class="section-heading">
@@ -361,7 +360,7 @@ const yearNames = {
   4: "Fourth Year"
 };
 
-/* Read CSV correctly, including quoted cells and commas. */
+/* Parse CSV, including quoted cells and commas. */
 function parseCSV(text) {
   const rows = [];
   let row = [];
@@ -507,7 +506,7 @@ function safeURL(value) {
   return "";
 }
 
-/* Filter resources by the selected branch, year and semester. */
+/* Filter resources by branch, year and semester. */
 function getCurrentMaterials() {
   return materials.filter(item =>
     getBranch(item) === selectedBranch &&
@@ -630,6 +629,11 @@ function renderSubjects(list) {
   ).join("");
 }
 
+/*
+  FIX:
+  Only display resource types that actually exist for the selected subject.
+  Empty PYQs and Notes folders will not be created.
+*/
 function renderTypes(list) {
   document.getElementById("sectionTitle").textContent = selectedSubject;
 
@@ -643,35 +647,35 @@ function renderTypes(list) {
     normalize(getSubject(item)) === normalize(selectedSubject)
   );
 
-  const types = ["PYQs", "Notes"];
+  const types = [...new Set(subjectItems.map(getType))]
+    .filter(type => type && type.trim() !== "");
+
+  if (!types.length) {
+    renderEmpty(
+      "No materials available yet",
+      "Add materials for this subject to your published Google Sheet."
+    );
+    return;
+  }
 
   resourcesEl.innerHTML = types.map(type => {
-    const matching = subjectItems.filter(item => getType(item) === type);
+    const matching = subjectItems.filter(
+      item => getType(item) === type
+    );
+
+    const icon =
+      type === "PYQs" ? "📄" :
+      type === "Notes" ? "📚" : "📁";
 
     return renderFolder(
       type,
-      type === "PYQs" ? "📄" : "📚",
-      matching.length + (matching.length === 1 ? " resource" : " resources"),
+      icon,
+      matching.length +
+        (matching.length === 1 ? " resource" : " resources"),
       "type",
       type
     );
   }).join("");
-
-  const otherTypes = [...new Set(
-    subjectItems
-      .map(getType)
-      .filter(type => !types.includes(type))
-  )];
-
-  otherTypes.forEach(type => {
-    resourcesEl.innerHTML += renderFolder(
-      type,
-      "📁",
-      "Additional subject materials",
-      "type",
-      type
-    );
-  });
 }
 
 function renderTypeMaterials(list) {
@@ -768,7 +772,7 @@ document.querySelectorAll(".branch-card").forEach(button => {
   });
 });
 
-/* Return to the branch selection screen. */
+/* Return to branch selection. */
 document.getElementById("changeBranchButton").addEventListener("click", () => {
   selectedBranch = null;
   searchEl.value = "";
